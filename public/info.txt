@@ -1,0 +1,4 @@
+navegacao via nome de pokemon criada
+
+próximo:
+criar pagina do pokemon
