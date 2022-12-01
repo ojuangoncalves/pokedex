@@ -1,4 +1,2 @@
-navegacao via nome de pokemon criada
-
 próximo:
-criar pagina do pokemon
+finalizar a pagina de pokemon individual
