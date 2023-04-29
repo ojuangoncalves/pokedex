@@ -1,6 +1,7 @@
 import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
 import axios from 'axios'
+import ProgressBar from '@ramonak/react-progress-bar'
 
 import Layout from "../../components/Layout"
 import { pokemonBase } from '../../utils/base'
@@ -48,17 +49,18 @@ export default function PokemonPage() {
                 </div>
             </div>
 
-            <div>
+            <div className='flex justify-center items-center flex-col mt-20'>
                 {
                     pokemon.stats.map(stat => {
                         return(
                             <div className="flex items-center justify-between w-80">
                                 <span>{ stat.stat.name }</span>
-                                <div className="realtive h-2 w-[200px] bg-gray-400 rounded-xl">
-                                    <div
-                                        className={`absolute h-2 w-[${stat.base_stat}px] bg-black rounded-xl`}>
-                                    </div>
-                                </div>
+                                <ProgressBar
+                                    completed={`${stat.base_stat}`}
+                                    width="200px"
+                                    maxCompleted={150}
+                                    labelAlignment='center'
+                                />
                             </div>
                         )
                     })
