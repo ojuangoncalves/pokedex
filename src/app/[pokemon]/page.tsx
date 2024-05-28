@@ -1,18 +1,24 @@
-import { useRouter } from 'next/router'
+'use client'
+
 import { useEffect, useState } from 'react'
 import axios from 'axios'
 import ProgressBar from '@ramonak/react-progress-bar'
 
-import Layout from "../../components/Layout"
-import { pokemonBase } from '../../utils/base'
-import BasicInformationLayout from '../../components/BasicInformationLayout'
+import { pokemonBase } from '@/utils/base'
+import BasicInformationLayout from '@/components/BasicInformationLayout'
 
-export default function PokemonPage() {
-    const pokemonName = useRouter().query.pokemon
+export default function pokemonPage(
+    { params } :{
+        params: {
+            pokemon: string
+        }
+    }
+) {
+    const pokemonName = params.pokemon
     const [pokemon, setPokemon] = useState<Pokemon>(pokemonBase)
 
     useEffect(() => {
-        axios(`https://pokeapi.co/api/v2/pokemon/${pokemonName}/`)
+        axios(`https://pokeapi.co/api/v2/pokemon/${pokemonName}`)
             .then(resp => resp.data)
             .then(resp => {
                 setPokemon(resp)
@@ -20,7 +26,7 @@ export default function PokemonPage() {
     }, [])
 
     return (
-        <Layout headTitle={ pokemonName }>
+        <>
             <h1 className="text-center font-bold text-4xl">
                 { `${pokemon.name.toUpperCase()}`} <strong className="text-red-500">|</strong> <span className="font-normal text-slate-500 italic">{ `Nº${pokemon.id}` }</span>
             </h1>
@@ -66,10 +72,6 @@ export default function PokemonPage() {
                     })
                 }
             </div>
-        </Layout>
+        </>
     )
 }
-
-/* 
-     bg-normal bg-fire bg-poison bg-grass bg-dragon bg-flying bg-ground bg-dark bg-fairy bg-water bg-rock bg-eletric bg-psychic bg-ice bg-ghost bg-steel
-*/

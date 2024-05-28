@@ -1,5 +1,3 @@
-import styles from './Header.module.css'
-
 export default function Header() {
     return (
         <header className="flex justify-between items-center py-6 pb-9 px-8 bg-red-500">

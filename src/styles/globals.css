@@ -4,9 +4,9 @@
 
 @font-face {
     font-family: "Pokemon";
-    src: url(../../public/pokemon.ttf);
+    src: url(../../public/pokemon.ttf)
 }
 
 body {
-    background-color: rgb(229, 231, 235);
+    background-color: #e5e7eb;
 }
