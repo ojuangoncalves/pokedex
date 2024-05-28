@@ -1,0 +1,32 @@
+import { Metadata } from "next"
+
+import Header from "@/components/Header"
+
+type Props = {
+    params: {
+        pokemon: string
+    }
+}
+
+export function generateMetadata(
+    { params } : Props
+) : Metadata {
+    let pl = params.pokemon[0]
+    const pokemonName = params.pokemon.replace(pl, pl.toUpperCase()) // Colocando a primeira letra do nome do Pokémon em maiúscula
+
+    return {
+        title: pokemonName
+    }
+}
+
+export default function RootLayout({
+	children
+}: {
+	children: React.ReactNode
+}) {
+	return (
+        <>
+		{ children }
+        </>
+	)
+}
