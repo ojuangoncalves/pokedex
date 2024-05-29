@@ -30,7 +30,8 @@ const config: Config = {
 				ghost: '#7b62a3',
 				steel: '#9eb7b8',
 				dark: '#707070',
-				fairy: '#fdb9e9'
+				fairy: '#fdb9e9',
+				fighting: '#d56723'
 			}
 		},
 	},
