@@ -72,6 +72,10 @@ export default function pokemonPage(
                     })
                 }
             </div>
+
+            <div>
+
+            </div>
         </>
     )
 }

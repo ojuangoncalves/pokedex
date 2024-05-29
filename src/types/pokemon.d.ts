@@ -1,3 +1,4 @@
+
 interface Pokemon {
     id: number
     name: string
@@ -78,3 +79,136 @@ interface PokemonSprites {
     back_shiny_female: string
 }
 
+// Types for Evolution Chain
+interface EvolutionChain {
+    id: number
+    bay_trigger_item: Item
+    chain: ChainLink
+    is_baby: boolean
+    species: EvolutionSpecies
+    evolution_details: EvolutionDetails[]
+    evolves_to: ChainLink[]
+}
+
+interface Item {
+    id: number
+    name: string
+    cost: number
+    fling_power: number
+    fling_effect: ItemFlingEffect
+    attributes: ItemAttribute[]
+    category: ItemCategory
+    effect_entries: VerboseEffect[]
+    flavor_text_entries: VersionGroupFlavorText[]
+    game_indices: GenerationGameIndex[]
+    names: Name[]
+    sprites: ItemSprites
+    held_by_pokemon: ItemHolderPokemon[]
+    baby_trigger_for: EvolutionChain
+    machines: MachineVersionDetail[]
+}
+
+interface ItemSprites {
+    default: string
+}
+
+interface ItemHolderPokemon {
+    pokemon: Pokemon
+    version_details: ItemHolderPokemonVersionDetail[]
+}
+
+interface ItemHolderPokemonVersionDetail {
+    rarity: number
+    version: Version
+}
+
+interface ItemFlingEffect {
+    id: number
+    name: string
+    effect_entries: Effect[]
+    items: Item
+}
+
+interface ItemAttribute {
+    id: number
+    name: string
+    items: Item[]
+    names: Name[]
+    descriptions: Description[]
+}
+
+interface ItemCategory {
+    id: number
+    name: string
+    items: Item[]
+    names: Name[]
+    pocket: ItemPocket
+}
+
+interface ItemPocket {
+    id: number
+    name: string
+    categories: ItemCategory[]
+    names: Name[]
+}
+
+interface VerboseEffect {
+    effect: string
+    short_effect: string
+    language: Language
+}
+
+interface Description {
+    description: string
+    language: Language
+}
+
+interface Effect {
+    effect: string
+    language: Language
+}
+
+interface MachineVersionDetail {
+    machine: Machine
+    version_group: VersionGroup
+}
+
+interface Name {
+    name: string
+    language: Language
+}
+
+interface VersionGroupFlavorText {
+    text: string
+    language: Language
+    version_group: VersionGroup
+}
+
+interface Language {
+    id: number
+    name: string
+    official: boolean
+    iso639: string
+    iso3166: string
+    names: Name[]
+}
+
+interface GenerationGameIndex {
+    game_index: number
+    generation: Generation
+}
+
+interface Version {
+    id: number
+    name: string
+    names: Name[]
+    version_group: VersionGroup
+}
+
+interface VersionGroup {
+    id: number
+    name: string
+    order: number
+    generation: Generation
+    move_learn_methodes: MoveLearnMethod[]
+}
