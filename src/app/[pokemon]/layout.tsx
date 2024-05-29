@@ -1,7 +1,5 @@
 import { Metadata } from "next"
 
-import Header from "@/components/Header"
-
 type Props = {
     params: {
         pokemon: string

@@ -75,3 +75,7 @@ export default function pokemonPage(
         </>
     )
 }
+
+/* 
+     bg-normal bg-fire bg-poison bg-grass bg-dragon bg-flying bg-ground bg-dark bg-fairy bg-water bg-rock bg-eletric bg-psychic bg-ice bg-ghost bg-steel bg-bug
+*/
