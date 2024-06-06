@@ -1,8 +1,9 @@
 'use client'
 
-import ProgressBar from '@ramonak/react-progress-bar'
 import { MainClient } from 'pokenode-ts'
 import BasicInformationLayout from '@/components/BasicInformationLayout'
+import PokemonStats from '@/components/PokemonStats'
+import EvolutionChain from '@/components/EvolutionChain'
 
 interface pokemonEvolution {
     name: string
@@ -22,25 +23,6 @@ export default async function pokemonPage(
 
     const pokemon = await api.pokemon.getPokemonByName(pokemonName)
     const evolutionChainId = parseInt((await api.pokemon.getPokemonSpeciesByName(pokemonName)).evolution_chain.url.split('/').sort()[2])
-
-    const evolutionChain = await api.evolution.getEvolutionChainById(evolutionChainId)
-
-    let evolutions : pokemonEvolution[] = [
-        { name: evolutionChain.chain.species.name }
-    ]
-
-    if(evolutionChain.chain.evolves_to) {
-        evolutions.push({
-            name: evolutionChain.chain.evolves_to[0].species.name,
-            level: evolutionChain.chain.evolves_to[0].evolution_details[0].min_level
-        })
-        if (evolutionChain.chain.evolves_to[0].evolves_to) {
-            evolutions.push({
-                name: evolutionChain.chain.evolves_to[0].evolves_to[0].species.name,
-                level: evolutionChain.chain.evolves_to[0].evolves_to[0].evolution_details[0].min_level
-            })
-        }
-    }
     
 
     return (
@@ -73,34 +55,9 @@ export default async function pokemonPage(
                 </div>
             </div>
 
-            <div className='flex justify-center items-center flex-col mt-20'>
-                {
-                    pokemon.stats.map(stat => {
-                        return(
-                            <div className="flex items-center justify-between w-80">
-                                <span>{ stat.stat.name }</span>
-                                <ProgressBar
-                                    completed={`${stat.base_stat}`}
-                                    width="200px"
-                                    maxCompleted={150}
-                                    labelAlignment='center'
-                                />
-                            </div>
-                        )
-                    })
-                }
-            </div>
+            <PokemonStats pokemon={pokemon} />
 
-            <div className='flex flex-row justify-between'>
-                { evolutions.map(pokemon => {
-                    return (
-                        <div>
-                            <img className="border-black border-solid border-2" src={`https://img.pokemondb.net/sprites/go/normal/${pokemon.name}.png`} />
-                            <p>{ pokemon.name } = { pokemon.level }</p>
-                        </div>
-                    )
-                }) }
-            </div>
+            <EvolutionChain id={evolutionChainId} />
         </>
     )
 }
