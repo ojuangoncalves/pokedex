@@ -1,14 +1,7 @@
-'use client'
-
 import { MainClient } from 'pokenode-ts'
 import BasicInformationLayout from '@/components/BasicInformationLayout'
 import PokemonStats from '@/components/PokemonStats'
 import EvolutionChain from '@/components/EvolutionChain'
-
-interface pokemonEvolution {
-    name: string
-    level?: number | null
-}
 
 export default async function pokemonPage(
     { params } :{
@@ -46,11 +39,11 @@ export default async function pokemonPage(
                     </BasicInformationLayout>
 
                     <BasicInformationLayout title="Abilities">
-                        { pokemon.abilities.map(ability => <p className="italic">{ability.ability.name}</p>) }
+                        { pokemon.abilities.map(ability => <p key={ability.ability.name} className="italic">{ability.ability.name}</p>) }
                     </BasicInformationLayout>
 
                     <BasicInformationLayout title="Type">
-                        { pokemon.types.map(type => <p className={`italic bg-${type.type.name} px-2 rounded-sm`}>{type.type.name}</p>) }
+                        { pokemon.types.map(type => <p key={type.type.name} className={`italic bg-${type.type.name} px-2 rounded-sm`}>{type.type.name}</p>) }
                     </BasicInformationLayout>
                 </div>
             </div>
