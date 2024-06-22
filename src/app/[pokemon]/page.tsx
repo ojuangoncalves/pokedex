@@ -1,13 +1,9 @@
-'use client'
-
-import { useEffect, useState } from 'react'
-import axios from 'axios'
-import ProgressBar from '@ramonak/react-progress-bar'
-
-import { pokemonBase } from '@/utils/base'
+import { MainClient } from 'pokenode-ts'
 import BasicInformationLayout from '@/components/BasicInformationLayout'
+import PokemonStats from '@/components/PokemonStats'
+import EvolutionChain from '@/components/EvolutionChain'
 
-export default function pokemonPage(
+export default async function pokemonPage(
     { params } :{
         params: {
             pokemon: string
@@ -15,15 +11,12 @@ export default function pokemonPage(
     }
 ) {
     const pokemonName = params.pokemon
-    const [pokemon, setPokemon] = useState<Pokemon>(pokemonBase)
 
-    useEffect(() => {
-        axios(`https://pokeapi.co/api/v2/pokemon/${pokemonName}`)
-            .then(resp => resp.data)
-            .then(resp => {
-                setPokemon(resp)
-            })
-    }, [])
+    const api = new MainClient()
+
+    const pokemon = await api.pokemon.getPokemonByName(pokemonName)
+    const evolutionChainId = parseInt((await api.pokemon.getPokemonSpeciesByName(pokemonName)).evolution_chain.url.split('/').sort()[2])
+    
 
     return (
         <>
@@ -46,36 +39,18 @@ export default function pokemonPage(
                     </BasicInformationLayout>
 
                     <BasicInformationLayout title="Abilities">
-                        { pokemon.abilities.map(ability => <p className="italic">{ability.ability.name}</p>) }
+                        { pokemon.abilities.map(ability => <p key={ability.ability.name} className="italic">{ability.ability.name}</p>) }
                     </BasicInformationLayout>
 
                     <BasicInformationLayout title="Type">
-                        { pokemon.types.map(type => <p className={`italic bg-${type.type.name} px-2 rounded-sm`}>{type.type.name}</p>) }
+                        { pokemon.types.map(type => <p key={type.type.name} className={`italic bg-${type.type.name} px-2 rounded-sm`}>{type.type.name}</p>) }
                     </BasicInformationLayout>
                 </div>
             </div>
 
-            <div className='flex justify-center items-center flex-col mt-20'>
-                {
-                    pokemon.stats.map(stat => {
-                        return(
-                            <div className="flex items-center justify-between w-80">
-                                <span>{ stat.stat.name }</span>
-                                <ProgressBar
-                                    completed={`${stat.base_stat}`}
-                                    width="200px"
-                                    maxCompleted={150}
-                                    labelAlignment='center'
-                                />
-                            </div>
-                        )
-                    })
-                }
-            </div>
+            <PokemonStats pokemon={pokemon} />
 
-            <div>
-
-            </div>
+            <EvolutionChain id={evolutionChainId} />
         </>
     )
 }

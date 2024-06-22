@@ -9,8 +9,8 @@ type Props = {
 export function generateMetadata(
     { params } : Props
 ) : Metadata {
-    let pl = params.pokemon[0]
-    const pokemonName = params.pokemon.replace(pl, pl.toUpperCase()) // Colocando a primeira letra do nome do Pokémon em maiúscula
+    let fl = params.pokemon[0]
+    const pokemonName = params.pokemon.replace(fl, fl.toUpperCase()) // Colocando a primeira letra do nome do Pokémon em maiúscula
 
     return {
         title: pokemonName
