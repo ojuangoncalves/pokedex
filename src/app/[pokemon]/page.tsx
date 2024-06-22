@@ -10,7 +10,7 @@ export default async function pokemonPage(
         }
     }
 ) {
-    const pokemonName = params.pokemon
+    const pokemonName = params.pokemon;
 
     const api = new MainClient()
 
