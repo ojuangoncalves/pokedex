@@ -59,7 +59,7 @@ export default async function EvolutionChain(props: EvolutionChainProps) {
     return (
         <div className='flex flex-row justify-between'>
             { evolutions.map(evolution => {
-                let fl = evolution.item? evolution.item[0] : ""
+                let fl = evolution.item? evolution.item[0] : evolution.type? evolution.type[0] : ""
                 // generate the evolution chain
                 if (!evolution.is_first) {
                     switch(evolution.type) {
@@ -68,7 +68,7 @@ export default async function EvolutionChain(props: EvolutionChainProps) {
                                 <Link key={evolution.pokemon_name} href={`../${evolution.pokemon_name}`}>
                                     <div>
                                         <img className="border-black border-solid border-2" src={`https://img.pokemondb.net/sprites/go/normal/${evolution.pokemon_name}.png`} />
-                                        <p>{ evolution.pokemon_name }</p>
+                                        <p>{ evolution.pokemon_name.replace(evolution.pokemon_name[0], evolution.pokemon_name[0].toUpperCase()) }</p>
                                         <p>Level { evolution.level }</p>
                                     </div>
                                 </Link>
@@ -78,13 +78,21 @@ export default async function EvolutionChain(props: EvolutionChainProps) {
                                 <Link key={evolution.pokemon_name} href={`../${evolution.pokemon_name}`}>
                                     <div>
                                         <img className="border-black border-solid border-2" src={`https://img.pokemondb.net/sprites/go/normal/${evolution.pokemon_name}.png`} />
-                                        <p>{ evolution.pokemon_name }</p>
+                                        <p>{ evolution.pokemon_name.replace(evolution.pokemon_name[0], evolution.pokemon_name[0].toUpperCase()) }</p>
                                         <p>Use { evolution.item? evolution.item.replace(fl, fl.toUpperCase()) : "" }</p>
                                     </div>
                                 </Link>
                             )
                         case 'trade':
-                            break
+                            return(
+                                <Link key={evolution.pokemon_name} href={`../${evolution.pokemon_name}`}>
+                                <div>
+                                    <img className="border-black border-solid border-2" src={`https://img.pokemondb.net/sprites/go/normal/${evolution.pokemon_name}.png`} />
+                                    <p>{ evolution.pokemon_name.replace(evolution.pokemon_name[0], evolution.pokemon_name[0].toUpperCase()) }</p>
+                                    <p>{ evolution.type? evolution.type.replace(fl, fl.toUpperCase()) : "" }</p>
+                                </div>
+                            </Link>
+                            )
                         default:
                             <p> DEFAULT </p>
                     }
@@ -93,7 +101,7 @@ export default async function EvolutionChain(props: EvolutionChainProps) {
                         <Link key={evolution.pokemon_name} href={`../${evolution.pokemon_name}`}>
                             <div>
                                 <img className="border-black border-solid border-2" src={`https://img.pokemondb.net/sprites/go/normal/${evolution.pokemon_name}.png`} />
-                                <p>{ evolution.pokemon_name }</p>
+                                <p>{ evolution.pokemon_name.replace(evolution.pokemon_name[0], evolution.pokemon_name[0].toUpperCase()) }</p>
                             </div>
                         </Link>
                     )
