@@ -59,6 +59,7 @@ export default async function EvolutionChain(props: EvolutionChainProps) {
     return (
         <div className='flex flex-row justify-between'>
             { evolutions.map(evolution => {
+                let fl = evolution.item? evolution.item[0] : ""
                 // generate the evolution chain
                 if (!evolution.is_first) {
                     switch(evolution.type) {
@@ -78,7 +79,7 @@ export default async function EvolutionChain(props: EvolutionChainProps) {
                                     <div>
                                         <img className="border-black border-solid border-2" src={`https://img.pokemondb.net/sprites/go/normal/${evolution.pokemon_name}.png`} />
                                         <p>{ evolution.pokemon_name }</p>
-                                        <p>Use { evolution.item }</p>
+                                        <p>Use { evolution.item? evolution.item.replace(fl, fl.toUpperCase()) : "" }</p>
                                     </div>
                                 </Link>
                             )
